@@ -148,11 +148,13 @@ global $nako3, $__v0, $__v1, $__v2;
   $__locals = ['それ'=>''];
   $__locals["S"] = func_get_arg(0);
   ;$__v0['line']="l77:api.nako3";
-  $__v0["ヘッダ設定"]("Content-Type: application/json",$nako3);
+  $__v0["ヘッダ設定"]("Access-Control-Allow-Origin: *",$nako3);
   ;;$__v0['line']="l78:api.nako3";
+  $__v0["ヘッダ設定"]("Content-Type: application/json",$nako3);
+  ;;$__v0['line']="l79:api.nako3";
   $__locals["それ"] = $__v0["JSONエンコード"](["result" => "error","reason" => $__locals["S"]],$nako3);
   /*[sore]*/ $__v0["表示"]($__locals["それ"],$nako3);
-  ;;$__v0['line']="l79:api.nako3";
+  ;;$__v0['line']="l80:api.nako3";
   
   return ($__locals["それ"]);
 });
@@ -162,12 +164,14 @@ $__v1["成功表示"]=(function(){
 global $nako3, $__v0, $__v1, $__v2;
   $__locals = ['それ'=>''];
   $__locals["S"] = func_get_arg(0);
-  ;$__v0['line']="l82:api.nako3";
+  ;$__v0['line']="l83:api.nako3";
+  $__v0["ヘッダ設定"]("Access-Control-Allow-Origin: *",$nako3);
+  ;;$__v0['line']="l84:api.nako3";
   $__v0["ヘッダ設定"]("Content-Type: application/json",$nako3);
-  ;;$__v0['line']="l83:api.nako3";
+  ;;$__v0['line']="l85:api.nako3";
   $__locals["それ"] = $__v0["JSONエンコード"](["result" => "ok","value" => $__locals["S"]],$nako3);
   /*[sore]*/ $__v0["表示"]($__locals["それ"],$nako3);
-  ;;$__v0['line']="l84:api.nako3";
+  ;;$__v0['line']="l86:api.nako3";
   
   return ($__locals["それ"]);
 });
@@ -301,10 +305,10 @@ $__v2["それ"] = $__v1["エラー表示"]("指定のmodeがありません。",
 ;$__v0['line']="l72:api.nako3";
 ;;$__v0['line']="l75:api.nako3";
 ;$__v0['line']="l76:api.nako3";
-;;$__v0['line']="l80:api.nako3";
-;$__v0['line']="l81:api.nako3";
-;;$__v0['line']="l85:api.nako3";
-;$__v0['line']="l86:api.nako3";
+;;$__v0['line']="l81:api.nako3";
+;$__v0['line']="l82:api.nako3";
+;;$__v0['line']="l87:api.nako3";
+;$__v0['line']="l88:api.nako3";
 ;//---
 
     } catch (Exception $err) {

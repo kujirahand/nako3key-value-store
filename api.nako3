@@ -74,11 +74,13 @@ DB保存フォルダ＝「{母艦パス}/db」
 ここまで。
 
 ●(Sの|Sを|Sと)エラー表示とは
+　　「Access-Control-Allow-Origin: *」にヘッダ設定。
 　　「Content-Type: application/json」にヘッダ設定。
 　　{"result":"error", reason:S}をJSONエンコードして表示。
 ここまで。
 
 ●(Sの|Sを|Sと)成功表示とは
+　　「Access-Control-Allow-Origin: *」にヘッダ設定。
 　　「Content-Type: application/json」にヘッダ設定。
 　　{"result":"ok", "value":S}をJSONエンコードして表示。
 ここまで。
