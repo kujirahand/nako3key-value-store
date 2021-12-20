@@ -1,0 +1,26 @@
+.box {
+  padding: 1em;
+  background-color: #f0f0ff;
+}
+.box-error {
+  padding: 1em;
+  background-color: #fff0f0;
+  border: 1px solid #ffc0c0;
+}
+h1.error {
+  color: red;
+}
+form {
+  line-height: 1.5em;
+}
+.tool {
+  border: 1px solid #a0a0c0;
+  padding: 0.5em;
+}
+.vcode {
+  padding: 0.5em;
+  border: 1px solid #8080c0;
+  background-color: #f0f0ff;
+  color: #505050;
+}
+

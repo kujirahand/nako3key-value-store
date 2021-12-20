@@ -1,0 +1,85 @@
+# 各種設定
+アプリタイトル＝「なでしこ3API - Key-Valueストア」
+DB保存フォルダ＝「{母艦パス}/db」
+メインDB=「{DB保存フォルダ}/db1.sqlite3」
+最大キー=2000 # 保存可能なキーの数を定義
+最大値文字数=1024*1024*3。#3MB以上のデータは保存できない
+初期設定実行。
+
+# パラメータ取得
+「mode」を「」でGET取得してMODEに代入。
+「key」を「」でGET取得してKEYに代入。
+「value」を「」でGET取得してVALUEに代入。
+「password」を「」でGET取得してPWに代入。
+
+# 値チェック
+もし、(KEYの文字数) > 1024ならば
+　　「keyの文字数が1024を超えています。」とエラー表示。終わり。
+ここまで。
+もし、(VALUEの文字数) > 最大値文字数ならば
+　　「valueの文字数が{最大値文字数}を超えています。」とエラー表示。終わり。
+ここまで。
+
+# MODEで分岐
+もし、MODE=「get」ならば
+　　取得処理。
+違えば、もし、MODE=「set」ならば
+　　設定処理。
+違えば
+　　「指定のmodeがありません。」とエラー表示。
+ここまで。
+
+●取得処理とは
+　　# パラメータ確認
+　　もし、PW=「」またはKEY=「」ならば
+　　　　「keyとpasswordが必要です」とエラー表示。終わり。
+　　ここまで。
+　　PWH＝（PWのPWハッシュ取得）。
+　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
+　　もし、それならば
+　　　　VALUE=それ@"value"
+　　　　VALUEを成功表示。
+　　違えば
+　　　　「見つかりません。」とエラー表示。
+　　ここまで。
+ここまで。
+
+●設定処理とは
+　　# パラメータ確認
+　　もし、PW=「」またはKEY=「」ならば
+　　　　「keyとpasswordが必要です」とエラー表示。終わり。
+　　ここまで。
+　　PWH＝（PWのPWハッシュ取得）。
+　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
+　　もし、それならば
+　　　　T=システム時間。
+　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=?』を[VALUE,T,KEY,PWH]でPDO実行。
+　　　　もし、CNT≧1ならば
+　　　　　　「完了」と成功表示。
+　　　　違えば
+　　　　　　「更新できません。」とエラー表示。終わり。
+　　　　ここまで。
+　　違えば
+　　　　「見つかりません。」とエラー表示。終わり。
+　　ここまで。
+ここまで。
+
+●(PWの)PWハッシュ取得とは
+　　パスワードSALT＝「NlHRYARkyJyofR3F」
+　　(PW&パスワードSALT)を「sha256」の「base64」でハッシュ値計算。
+ここまで。
+
+●初期設定実行とは
+　　「sqlite:{メインDB}」のPDO生成。
+ここまで。
+
+●(Sの|Sを|Sと)エラー表示とは
+　　「Content-Type: application/json」にヘッダ設定。
+　　{"result":"error", reason:S}をJSONエンコードして表示。
+ここまで。
+
+●(Sの|Sを|Sと)成功表示とは
+　　「Content-Type: application/json」にヘッダ設定。
+　　{"result":"ok", "value":S}をJSONエンコードして表示。
+ここまで。
+
