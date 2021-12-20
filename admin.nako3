@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS items (
 );
 CREATE UNIQUE INDEX items_key_index ON items (key);
 』
+ADMIN_PAGE=「admin.php」
 初期設定実行。
 
 # パラメータ取得
@@ -55,7 +56,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 　　# 生成
 　　T=システム時間。
 　　『INSERT INTO items (key,value,password,ctime,mtime) VALUES (?,?,?,?,?)』を[KEY, VALUE, PWハッシュ,T, T]でPDO実行。
-　　「キー:{KEY}」と「作成完了。<a href="index.php">→戻る</a>」で画面表示。
+　　「キー:{KEY}」と「作成完了。<a href="{ADMIN_PAGE}">→戻る</a>」で画面表示。
 ここまで。
 
 ●取得処理とは
@@ -72,7 +73,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
             	<div>{KEY}の値:</div>
             	<div class="vcode"><code>[[CODE]]</code></div>
             </div>
-            <div><br><a href="index.php">→戻る</a></div>
+            <div><br><a href="{ADMIN_PAGE}">→戻る</a></div>
              」に{"CODE":VALUE,"KEY":KEY}をHTML埋め込みしてMSGに代入。
 　　　　「キー『{KEY}』の値」とMSGで画面表示。
 　　違えば
@@ -91,7 +92,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 　　　　T=システム時間。
 　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=?』を[VALUE,T,KEY,PWH]でPDO実行。
 　　　　もし、CNT≧1ならば
-　　　　　　「値の更新完了: {KEY}」と「<a href="index.php">更新完了。戻る</a>」で画面表示。
+　　　　　　「値の更新完了: {KEY}」と「<a href="{ADMIN_PAGE}">更新完了。戻る</a>」で画面表示。
 　　　　違えば
 　　　　　　「更新できません。」とエラー表示。終わり。
 　　　　ここまで。
@@ -114,10 +115,10 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 ここまで。
 
 ●フォーム画面とは
-    「管理画面 - {アプリタイトル}」と『
+    「管理画面 - {アプリタイトル}」と「
 <h2>新規キーを作成しよう</h2>
 <div class="tool">
-<form action="index.php" method="GET">
+<form action="{ADMIN_PAGE}" method="GET">
 <input type="hidden" name="mode" value="create">
 <p><label>キー:<br><input type="text" name="key" value="test"><label></p>
 <p><label>初期値:<br><input type="text" name="value" value="hoge"></label></p>
@@ -128,7 +129,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 
 <h2>既存キーを取得しよう</h2>
 <div class="tool">
-<form action="index.php" method="GET">
+<form action="{ADMIN_PAGE}" method="GET">
 <input type="hidden" name="mode" value="get">
 <p><label>キー:<br><input type="text" name="key" value="test"><label></p>
 <p><label>パスワード:<br><input type="password" name="password" value="abcd"></label></p>
@@ -138,7 +139,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 
 <h2>既存キーを設定しよう</h2>
 <div class="tool">
-<form action="index.php" method="GET">
+<form action="{ADMIN_PAGE}" method="GET">
 <input type="hidden" name="mode" value="set">
 <p><label>キー:<br><input type="text" name="key" value="test"><label></p>
 <p><label>値:<br><input type="text" name="value" value="test"><label></p>
@@ -146,8 +147,7 @@ CREATE UNIQUE INDEX items_key_index ON items (key);
 <p><input type="submit" value="更新"></p>
 </form>
 </div>
-
-』で画面表示。
+」で画面表示。
 ここまで。
 
 ●(Sの|Sを|Sと)エラー表示とは
