@@ -10,6 +10,26 @@
 h1.error {
   color: red;
 }
+#menubar {
+  padding: 8px;
+  background-color: #f0f0ff;
+  font-size: 0.8em;
+  border-bottom: 1px solid silver;
+}
+#footer {
+  margin-top: 2em;
+  padding: 8px;
+  border-top: 1px silver solid;
+  text-align: right;
+  font-size: 0.8em;
+  background-color: #f0f0ff;
+}
+.info {
+  color: #909090;
+  font-size: 0.8em;
+  background-color: white;
+  padding: 8px;
+}
 form {
   line-height: 1.5em;
 }
