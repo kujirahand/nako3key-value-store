@@ -113,7 +113,7 @@ ADMIN_PAGE=「admin.php」
 　　　　「既にkeyが存在しています。」とエラー表示。終わる。
 　　ここまで。
 　　# 生成
-　　T=システム時間。
+　　T=システム時間ミリ秒。
 　　『INSERT INTO items (key,value,password,ctime,mtime) VALUES (?,?,?,?,?)』を[KEY, VALUE, PWハッシュ,T, T]でPDO実行。
 　　「キー:{KEY}」と「作成完了。<a href="{ADMIN_PAGE}">→戻る</a>」で画面表示。
 ここまで。
@@ -127,13 +127,15 @@ ADMIN_PAGE=「admin.php」
 　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
 　　もし、それならば
 　　　　VALUE=それ@"value"
+　　　　MTIME=それ@"mtime"/1000
 　　　　「
             <div>
             	<div>{KEY}の値:</div>
             	<div class="vcode"><code>[[CODE]]</code></div>
+            	<div class="hint">更新日時: [[MTIME|datetime]]</div>
             </div>
             <div><br><a href="{ADMIN_PAGE}">→戻る</a></div>
-             」に{"CODE":VALUE,"KEY":KEY}をHTML埋め込みしてMSGに代入。
+             」に{"CODE":VALUE,"KEY":KEY,"MTIME":MTIME}をHTML埋め込みしてMSGに代入。
 　　　　「キー『{KEY}』の値」とMSGで画面表示。
 　　違えば
 　　　　「見つかりません。」とエラー表示。
@@ -148,7 +150,7 @@ ADMIN_PAGE=「admin.php」
 　　PWH＝（PWのPWハッシュ取得）。
 　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
 　　もし、それならば
-　　　　T=システム時間。
+　　　　T=システム時間ミリ秒。
 　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=?』を[VALUE,T,KEY,PWH]でPDO実行。
 　　　　もし、CNT≧1ならば
 　　　　　　「値の更新完了: {KEY}」と「<a href="{ADMIN_PAGE}">更新完了。戻る</a>」で画面表示。

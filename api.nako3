@@ -1,5 +1,6 @@
 # 各種設定
 アプリタイトル＝「なでしこ3API - Key-Valueストア」
+API_VERSION=「0.2.0」
 DB保存フォルダ＝「{母艦パス}/db」
 メインDB=「{DB保存フォルダ}/db1.sqlite3」
 最大キー=2000 # 保存可能なキーの数を定義
@@ -11,6 +12,7 @@ DB保存フォルダ＝「{母艦パス}/db」
 「key」を「」でGET取得してKEYに代入。
 「value」を「」でGET取得してVALUEに代入。
 「password」を「」でGET取得してPWに代入。
+「time」を「0」でGET取得してTIMEに代入。
 
 # 値チェック
 もし、(KEYの文字数) > 1024ならば
@@ -19,6 +21,8 @@ DB保存フォルダ＝「{母艦パス}/db」
 もし、(VALUEの文字数) > 最大値文字数ならば
 　　「valueの文字数が{最大値文字数}を超えています。」とエラー表示。終わり。
 ここまで。
+TIME=INT(TIME)
+もし、TIME=0ならば、TIME=システム時間ミリ秒。
 
 # MODEで分岐
 もし、MODE=「get」ならば
@@ -38,7 +42,8 @@ DB保存フォルダ＝「{母艦パス}/db」
 　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
 　　もし、それならば
 　　　　VALUE=それ@"value"
-　　　　VALUEを成功表示。
+　　　　MTIME=それ@"mtime"
+　　　　VALUEとMTIMEで成功表示。
 　　違えば
 　　　　「見つかりません。」とエラー表示。
 　　ここまで。
@@ -52,10 +57,9 @@ DB保存フォルダ＝「{母艦パス}/db」
 　　PWH＝（PWのPWハッシュ取得）。
 　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
 　　もし、それならば
-　　　　T=システム時間。
-　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=?』を[VALUE,T,KEY,PWH]でPDO実行。
+　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=? AND mtime > ?』を[VALUE,TIME,KEY,PWH,TIME]でPDO実行。
 　　　　もし、CNT≧1ならば
-　　　　　　「完了」と成功表示。
+　　　　　　「完了」とTIMEで成功表示。
 　　　　違えば
 　　　　　　「更新できません。」とエラー表示。終わり。
 　　　　ここまで。
@@ -76,12 +80,12 @@ DB保存フォルダ＝「{母艦パス}/db」
 ●(Sの|Sを|Sと)エラー表示とは
 　　「Access-Control-Allow-Origin: *」にヘッダ設定。
 　　「Content-Type: application/json」にヘッダ設定。
-　　{"result":"error", reason:S}をJSONエンコードして表示。
+　　{"result":"error", reason:S, api_version:API_VERSION}をJSONエンコードして表示。
 ここまで。
 
-●(Sの|Sを|Sと)成功表示とは
+●(Sの|Sを|SとMTIMEで)成功表示とは
 　　「Access-Control-Allow-Origin: *」にヘッダ設定。
 　　「Content-Type: application/json」にヘッダ設定。
-　　{"result":"ok", "value":S}をJSONエンコードして表示。
+　　{"result":"ok", "value":S, "time":MTIME,api_version:API_VERSION}をJSONエンコードして表示。
 ここまで。
 

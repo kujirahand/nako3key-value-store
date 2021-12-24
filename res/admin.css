@@ -43,4 +43,9 @@ form {
   background-color: #f0f0ff;
   color: #505050;
 }
+.hint {
+  font-size: 0.8em;
+  color: silver;
+}
+
 
