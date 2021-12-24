@@ -57,7 +57,7 @@ TIME=INT(TIME)
 　　PWH＝（PWのPWハッシュ取得）。
 　　『SELECT * FROM items WHERE key=? AND password=?』を[KEY,PWH]でPDO一行取得。
 　　もし、それならば
-　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=? AND mtime > ?』を[VALUE,TIME,KEY,PWH,TIME]でPDO実行。
+　　　　CNT=『UPDATE items SET value=?,mtime=? WHERE key=? AND password=? AND mtime < ?』を[VALUE,TIME,KEY,PWH,TIME]でPDO実行。
 　　　　もし、CNT≧1ならば
 　　　　　　「完了」とTIMEで成功表示。
 　　　　違えば

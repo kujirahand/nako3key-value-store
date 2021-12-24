@@ -89,7 +89,7 @@ global $nako3, $__v0, $__v1, $__v2;
   ;;$__v0['line']="l59:api.nako3";
   $__v0['line']="l59:api.nako3";if ($__locals["それ"]) {
     ;$__v0['line']="l60:api.nako3";
-  ;$__locals["CNT"]=$__locals["それ"] = $__v0["PDO実行"]("UPDATE items SET value=?,mtime=? WHERE key=? AND password=? AND mtime > ?",[$__v2["VALUE"],$__v2["TIME"],$__v2["KEY"],$__locals["PWH"],$__v2["TIME"]],$nako3);
+  ;$__locals["CNT"]=$__locals["それ"] = $__v0["PDO実行"]("UPDATE items SET value=?,mtime=? WHERE key=? AND password=? AND mtime < ?",[$__v2["VALUE"],$__v2["TIME"],$__v2["KEY"],$__locals["PWH"],$__v2["TIME"]],$nako3);
   ;;$__v0['line']="l61:api.nako3";
   $__v0['line']="l61:api.nako3";if (($__locals["CNT"] >= 1)) {
     ;$__v0['line']="l62:api.nako3";
